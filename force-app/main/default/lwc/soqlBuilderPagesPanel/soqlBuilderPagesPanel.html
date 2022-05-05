@@ -1,0 +1,13 @@
+<template>
+  <template if:true={totalListOfResult}>
+    <lightning-datatable data={listToDisplay} columns={columns} key-field="Id">
+    </lightning-datatable>
+    <c-soql-builder-paginator
+      pagenum={pageNum}
+      totalpages={totalPages}
+      if:true={totalListOfResult}
+      onprevious={previousHandler}
+      onnext={nextHandler}
+    ></c-soql-builder-paginator>
+  </template>
+</template>

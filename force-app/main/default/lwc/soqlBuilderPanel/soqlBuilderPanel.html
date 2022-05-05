@@ -1,0 +1,119 @@
+<template>
+  <div class="panel" id="panel">
+    <div class="object-picker" id="object-picker">
+      <lightning-combobox
+        name="object-picker"
+        value={object}
+        label="Pick an object to start"
+        placeholder="Select Object"
+        options={listOfobjects}
+        onchange={getObject}
+      >
+      </lightning-combobox>
+    </div>
+    <div if:true={object} class="input_panel" id="input_panel">
+      <p>SELECT</p>
+      <lightning-button
+        class="field-picker"
+        id="field-picker"
+        label="Pick Fields"
+        title="Pick fields"
+        onclick={openModal}
+      ></lightning-button>
+      <p>FROM</p>
+      <p>
+        <lightning-formatted-text value={object}></lightning-formatted-text>
+      </p>
+      <p>WHERE</p>
+      <lightning-combobox
+        name="field-picker"
+        value={whereField}
+        label="Choose a field to search for"
+        placeholder="Choose a field to search for"
+        options={fieldsObject}
+        onchange={setField}
+      >
+      </lightning-combobox>
+      <p>IS</p>
+      <div class="slds-p-around_medium lgc-bg">
+        <lightning-input
+          type="text"
+          value={whereFieldData}
+          onfocusout={setWhereData}
+          label="WHERE equals to..."
+          placeholder="Type here keywords to correspond"
+        ></lightning-input>
+      </div>
+    </div>
+    <div class="buttons" id="buttons">
+      <div class="launch_btn" id="launch_btn">
+        <lightning-button
+          variant="brand"
+          label="Launch"
+          title="Primary action"
+          class="slds-m-left_x-small"
+          onclick={pushQuery}
+        ></lightning-button>
+      </div>
+      <div class="reset_btn" id="reset_btn">
+        <lightning-button
+          variant="destructive"
+          label="Reset"
+          title="Resret"
+          class="slds-m-left_x-small"
+        ></lightning-button>
+      </div>
+    </div>
+  </div>
+  <template if:true={isModalOpen}>
+    <div class="modal" id="modal">
+      <section
+        role="dialog"
+        tabindex="-1"
+        aria-labelledby="modal-heading-01"
+        aria-modal="true"
+        aria-describedby="modal-content-id-1"
+        class="slds-modal slds-fade-in-open"
+      >
+        <header class="slds-modal__header">
+          <button
+            class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+            title="Close"
+            onclick={closeModal}
+          >
+            <lightning-icon
+              icon-name="utility:close"
+              alternative-text="close"
+              variant="inverse"
+              size="small"
+            ></lightning-icon>
+            <span class="slds-assistive-text">Close</span>
+          </button>
+          <h2
+            id="modal-heading-01"
+            class="slds-text-heading_medium slds-hyphenate"
+          >
+            Choose fields to query
+          </h2>
+        </header>
+        <lightning-button
+          variant="brand"
+          label="Save Fields"
+          title="Primary action"
+          class="slds-m-left_x-small"
+          onclick={closeModal}
+        ></lightning-button>
+        <div class="fields-picklist" id="fields-picklist">
+          <lightning-checkbox-group
+            name="Checkbox Group"
+            label="Checkbox Group"
+            options={fieldsObject}
+            value={selectedFields}
+            onchange={selectFields}
+          >
+          </lightning-checkbox-group>
+        </div>
+      </section>
+    </div>
+  </template>
+</template>
