@@ -9,11 +9,11 @@
 .input_panel {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
-  width: 80%;
+  width: 95%;
   height: auto;
-  margin-top: 5%;
+  margin-top: 2%;
 }
 
 .buttons {
