@@ -1,0 +1,30 @@
+.slds-form-element__control {
+    height: 100%;
+    overflow: scroll;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.slds-modal {
+  /*display: none;*/
+  position: absolute;
+  top: 10%;
+  right: 0;
+  bottom: 0;
+  left: 10%;
+  z-index: 9001;
+  height: 85%;
+  width: 80%;
+  border: 3px solid blue;
+  border-radius: 10px;
+  background-color: white;
+}
+
+fieldset {
+    height: 10vh;
+}
+
