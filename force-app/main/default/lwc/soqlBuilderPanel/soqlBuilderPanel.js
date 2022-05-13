@@ -4,6 +4,8 @@ import getFieldsOfObject from "@salesforce/apex/SOQLBuilderController.getFieldsO
 import getAllObjects from "@salesforce/apex/SOQLBuilderController.getAllObjects";
 import launchQuery from "@salesforce/apex/SOQLBuilderController.launchQuery";
 import soqlResult from "@salesforce/messageChannel/soqlResult__c";
+import { loadStyle } from 'lightning/platformResourceLoader';
+import CUSTOMCSSOpen from '@salesforce/resourceUrl/SOQLBuilderModalWindowStyle';
 
 export default class SoqlBuilderPanel extends LightningElement {
   object;
@@ -75,11 +77,16 @@ export default class SoqlBuilderPanel extends LightningElement {
 
   openModal() {
     this.isModalOpen = true;
+    loadStyle(this,CUSTOMCSSOpen).then(()=>{
+        console.log('loaded open file');
+    })
+    .catch(error=>{
+        console.log(error);
+    });
   }
 
   closeModal() {
     this.isModalOpen = false;
-    console.log(this.selectedFields);
   }
 
   selectFields(event) {
@@ -90,8 +97,8 @@ export default class SoqlBuilderPanel extends LightningElement {
     launchQuery({
       selectedFields: this.selectedFields,
       objectName: this.object,
-      whereField: this.whereField,
-      whereData: this.whereFieldData
+      whereField: this?.whereField,
+      whereData: this?.whereFieldData
     }).then((result) => {
       //console.log(result);
       publish(this.messageContext, soqlResult, result);
@@ -106,4 +113,5 @@ export default class SoqlBuilderPanel extends LightningElement {
     console.log(event.target.value);
     this.whereFieldData = event.target.value;
   }
+
 }
